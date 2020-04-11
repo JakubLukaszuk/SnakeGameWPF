@@ -61,6 +61,16 @@
     </Compile>
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\NotificationBase.cs" />
+    <Compile Include="Game\BoardItem.cs" />
+    <Compile Include="Game\Constant\Dimensions.cs" />
+    <Compile Include="Game\Constant\Enum\SnakeDirection.cs" />
+    <Compile Include="Game\Constant\GameInfo.cs" />
+    <Compile Include="Game\Delegate.cs" />
+    <Compile Include="Game\GameLogic.cs" />
+    <Compile Include="Game\Snake\Snake.cs" />
+    <Compile Include="Game\Snake\SnakeHead.cs" />
+    <Compile Include="Game\Snake\SnakeSegment.cs" />
+    <Compile Include="Game\Snake\SnakeBoadySegment.cs" />
     <Compile Include="ViewModel\GameWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\GameWindow.xaml.cs">

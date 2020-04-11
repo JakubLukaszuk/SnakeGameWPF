@@ -1,12 +1,17 @@
 ﻿using System.Windows.Input;
-using SnakeGameWPF.Common; 
+using SnakeGameWPF.Common;
+using SnakeGameWPF.Game;
+using SnakeGameWPF.Game.Constant.Enum;
 
 namespace SnakeGameWPF.ViewModel
 {
     class GameWindowViewModel : ViewModelBase
     {
+    
         public GameWindowViewModel()
         {
+            SnakeGameLogic = new GameLogic();
+
             UpArrowKeyPressedCommand = new DelegateCommand(OnUpArrowKeyPressed);
             DownArrowKeyPressedCommand = new DelegateCommand(OnDownArrowKeyPressed);
             RightArrowKeyPressedCommand = new DelegateCommand(OnRightArrowKeyPressed);
@@ -15,21 +20,23 @@ namespace SnakeGameWPF.ViewModel
 
         private void OnUpArrowKeyPressed(object arg)
         {
-            System.Console.WriteLine("UP");
+            SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Up);
         }
 
         private void OnDownArrowKeyPressed(object arg)
         {
-                
+            SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Down);
+
         }
 
         private void OnRightArrowKeyPressed(object arg)
         {
-
+            SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Right);
         }
 
         private void OnLeftArrowKeyPressed(object arg)
         {
+            SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Left);
 
         }
 
@@ -56,5 +63,8 @@ namespace SnakeGameWPF.ViewModel
             get;
             private set;
         }
+
+        public GameLogic SnakeGameLogic { get; }
+
     }
 }
