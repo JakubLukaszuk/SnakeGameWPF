@@ -22,6 +22,7 @@ namespace SnakeGameWPF.Game
         {
             WholeSnake.OnHitBoundary += new HitBoundary(HitBoundaryEventHandler);
             WholeSnake.OnHitSnake += new HitSnake(HitSnakeEventHandler);
+            WholeSnake.OnHitSnakeFood += new HitSnakeFoood(HitSnakeFoodHandler);
 
             StartNewGame();
         }
@@ -29,7 +30,10 @@ namespace SnakeGameWPF.Game
         private void StartNewGame()
         {
             WholeSnake = new WholeSnake();
-            RaisePropertyChanged("TheSnake");
+            RaisePropertyChanged("WholeSnake");
+
+            SnakeFood = new SnakeFood();
+            RaisePropertyChanged("SnakeFood");
 
             IsGameOver = false;
             RaisePropertyChanged("IsGameOver");
@@ -47,17 +51,20 @@ namespace SnakeGameWPF.Game
         {
             if (IsGameOver)
             {
-                // Game over.
                 if (_gameTimer.IsEnabled)
                 {
-                    _gameTimer.Stop();  // Stop the game timer.
+                    _gameTimer.Stop();  
                 }
             }
             else
             {
-                // Game running.
-                WholeSnake.UpdateSnakeStatus();
+                WholeSnake.UpdateSnakeStatus(SnakeFood);
             }
+        }
+
+        public void HitSnakeFoodHandler()
+        {
+            SnakeFood.Move(WholeSnake);
         }
 
         private void HitBoundaryEventHandler()
@@ -85,6 +92,7 @@ namespace SnakeGameWPF.Game
 
         public WholeSnake WholeSnake { get; private set; }
 
+        public SnakeFood SnakeFood { get; private set; }
 
 
         public bool IsGameOver { get; private set; }

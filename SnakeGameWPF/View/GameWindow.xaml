@@ -30,15 +30,47 @@
                     <Rectangle Width="{Binding SnakeGameLogic.WholeSnake.SnakeHead.WidthPixels, Mode=OneWay}" 
                        Height="{Binding SnakeGameLogic.WholeSnake.SnakeHead.HeightPixels, Mode=OneWay}" 
                        Fill="DarkGreen">
-                <Rectangle.RenderTransform>
-                    <TransformGroup>
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
                                 <TranslateTransform X="{Binding SnakeGameLogic.WholeSnake.SnakeHead.XPositionPixelsScreen, Mode=OneWay}" 
                                             Y="{Binding SnakeGameLogic.WholeSnake.SnakeHead.YPositionPixelsScreen, Mode=OneWay}">
                                 </TranslateTransform>
                             </TransformGroup>
-                </Rectangle.RenderTransform>
-            </Rectangle>
-        </Canvas>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="{Binding SnakeGameLogic.SnakeFood.WidthPixels, Mode=OneWay}" 
+                        Height="{Binding SnakeGameLogic.SnakeFood.HeightPixels, Mode=OneWay}" 
+                         Fill="Red">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <TranslateTransform X="{Binding SnakeGameLogic.SnakeFood.XPositionPixelsScreen, Mode=OneWay}" 
+                                            Y="{Binding SnakeGameLogic.SnakeFood.YPositionPixelsScreen, Mode=OneWay}">
+                                </TranslateTransform>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <ItemsControl ItemsSource="{Binding SnakeGameLogic.WholeSnake.SnakeBody}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas></Canvas>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Rectangle Width="{Binding WidthPixels}" Height="{Binding HeightPixels}" Fill="Green">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <TranslateTransform X="{Binding XPositionPixelsScreen, Mode=OneWay}" 
+                                                        Y="{Binding YPositionPixelsScreen, Mode=OneWay}">
+                                            </TranslateTransform>
+
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Canvas>
         </Border>
         </Viewbox>
         <Grid Grid.ColumnSpan="3">

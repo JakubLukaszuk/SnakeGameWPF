@@ -25,6 +25,7 @@ namespace SnakeGameWPF.Game.Snake
 
         public static event HitBoundary OnHitBoundary;
         public static event HitSnake OnHitSnake;
+        public static event HitSnakeFoood OnHitSnakeFood;
 
         public SnakeHead SnakeHead { get; }
 
@@ -45,7 +46,7 @@ namespace SnakeGameWPF.Game.Snake
             SnakeHead.TravelDirection = direction;
         }
 
-        public void UpdateSnakeStatus()
+        public void UpdateSnakeStatus(SnakeFood snakeFood)
         {
             SnakeHead.UpdatePosition();    
             SnakeDirection previousDirection;
@@ -66,6 +67,14 @@ namespace SnakeGameWPF.Game.Snake
             if (SnakeHead.IsHitSelf(_snakeBody))
             {
                 OnHitSnake?.Invoke();
+            }
+
+            if (SnakeHead.IsHitFood(snakeFood))
+            {
+                SnakeBoadySegment snakeBodyPart = new SnakeBoadySegment(this);
+                _snakeBody.Add(snakeBodyPart);
+
+                OnHitSnakeFood?.Invoke();
             }
 
         }

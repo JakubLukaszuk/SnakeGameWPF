@@ -44,7 +44,7 @@ namespace SnakeGameWPF.Game.Snake
             switch (_travelDirection)
             {
                 case SnakeDirection.Up:
-                    _yPosition = _yPosition - Dimensions.SnakeStepPix;
+                    _yPosition = _yPosition - Dimensions.SnakeStep;
                     Console.WriteLine("up");
                     Console.WriteLine("x :" + _xPosition + "y: " + _yPosition);
 
@@ -53,7 +53,7 @@ namespace SnakeGameWPF.Game.Snake
                     RaisePropertyChanged("YPositionPixelsScreen");
                     break;
                 case SnakeDirection.Down:
-                    _yPosition = _yPosition + Dimensions.SnakeStepPix;
+                    _yPosition = _yPosition + Dimensions.SnakeStep;
                     Console.WriteLine("dwon");
                     Console.WriteLine("x :" + _xPosition + "y: " + _yPosition);
 
@@ -62,7 +62,7 @@ namespace SnakeGameWPF.Game.Snake
                     RaisePropertyChanged("YPositionPixelsScreen");
                     break;
                 case SnakeDirection.Right:
-                    _xPosition = _xPosition + Dimensions.SnakeStepPix;
+                    _xPosition = _xPosition + Dimensions.SnakeStep;
                     Console.WriteLine("right");
                     Console.WriteLine("x :" + _xPosition + "y: " + _yPosition);
 
@@ -71,7 +71,7 @@ namespace SnakeGameWPF.Game.Snake
                     RaisePropertyChanged("XPositionPixelsScreen");
                     break;
                 case SnakeDirection.Left:
-                    _xPosition = _xPosition - Dimensions.SnakeStepPix;
+                    _xPosition = _xPosition - Dimensions.SnakeStep;
                     Console.WriteLine("left");
                     Console.WriteLine("x :" + _xPosition + "y: " + _yPosition);
 

@@ -8,5 +8,5 @@ namespace SnakeGameWPF.Game
 {
     public delegate void HitSnake();
     public delegate void HitBoundary();
-
+    public delegate void HitSnakeFoood();
 }

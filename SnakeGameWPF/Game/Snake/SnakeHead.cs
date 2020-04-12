@@ -10,10 +10,10 @@ namespace SnakeGameWPF.Game.Snake
         public SnakeHead(SnakeDirection direction)
         : base(direction)
         {
-            _xPosition = Dimensions.SpawnSneakXPosPix;
-            _yPosition = Dimensions.SpawnSneakYPosPix; 
-            _width = Dimensions.SneakHeadHieghtPix;
-            _height = Dimensions.SneakHeadWidthPix;
+            _xPosition = Dimensions.SpawnSneakXPos;
+            _yPosition = Dimensions.SpawnSneakYPos; 
+            _width = Dimensions.SneakHeadHieght;
+            _height = Dimensions.SneakHeadWidth;
         }
 
 
@@ -46,6 +46,21 @@ namespace SnakeGameWPF.Game.Snake
                 return true;
             }
             else if (_yPosition + (_height / 2.0) > 100)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsHitFood(SnakeFood food)
+        {
+            double xDiff = Math.Abs(_xPosition - food.XPosition);
+            double yDiff = Math.Abs(_yPosition - food.YPosition);
+
+            if (xDiff < _width && yDiff < _height)
             {
                 return true;
             }
