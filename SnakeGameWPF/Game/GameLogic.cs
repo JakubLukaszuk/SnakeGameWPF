@@ -20,11 +20,12 @@ namespace SnakeGameWPF.Game
 
         public GameLogic()
         {
+
+            StartNewGame();
+
             WholeSnake.OnHitBoundary += new HitBoundary(HitBoundaryEventHandler);
             WholeSnake.OnHitSnake += new HitSnake(HitSnakeEventHandler);
             WholeSnake.OnHitSnakeFood += new HitSnakeFoood(HitSnakeFoodHandler);
-
-            StartNewGame();
         }
 
         private void StartNewGame()

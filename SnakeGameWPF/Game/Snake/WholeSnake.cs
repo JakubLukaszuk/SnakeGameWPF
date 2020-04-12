@@ -23,9 +23,9 @@ namespace SnakeGameWPF.Game.Snake
             BindingOperations.EnableCollectionSynchronization(_snakeBody, _itemsLock);
         }
 
-        public static event HitBoundary OnHitBoundary;
-        public static event HitSnake OnHitSnake;
-        public static event HitSnakeFoood OnHitSnakeFood;
+        public event HitBoundary OnHitBoundary;
+        public event HitSnake OnHitSnake;
+        public event HitSnakeFoood OnHitSnakeFood;
 
         public SnakeHead SnakeHead { get; }
 
