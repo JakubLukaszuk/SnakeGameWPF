@@ -10,18 +10,21 @@ using SnakeGameWPF.Game.Constant.Enum;
 
 namespace SnakeGameWPF.Game.Snake
 {
-    class Snake : NotificationBase
+    internal class WholeSnake : NotificationBase
     {
         private ObservableCollection<SnakeBoadySegment> _snakeBody;
         private static object _itemsLock = new object();
 
 
-        public Snake()
+        public WholeSnake()
         {
             SnakeHead = new SnakeHead(SnakeDirection.Left);
             _snakeBody = new ObservableCollection<SnakeBoadySegment>();
             BindingOperations.EnableCollectionSynchronization(_snakeBody, _itemsLock);
         }
+
+        public static event HitBoundary OnHitBoundary;
+        public static event HitSnake OnHitSnake;
 
         public SnakeHead SnakeHead { get; }
 
@@ -53,6 +56,16 @@ namespace SnakeGameWPF.Game.Snake
                 previousDirection = bodyPart.TravelDirection;
                 bodyPart.TravelDirection = nextDirection;
                 nextDirection = previousDirection;
+            }
+
+            if (SnakeHead.IsHitBoundary())
+            {
+                OnHitBoundary?.Invoke();
+            }
+
+            if (SnakeHead.IsHitSelf(_snakeBody))
+            {
+                OnHitSnake?.Invoke();
             }
 
         }

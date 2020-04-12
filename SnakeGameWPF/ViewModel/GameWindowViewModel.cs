@@ -20,24 +20,34 @@ namespace SnakeGameWPF.ViewModel
 
         private void OnUpArrowKeyPressed(object arg)
         {
-            SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Up);
+            if(SnakeGameLogic.IsGameRunning)
+            {
+                SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Up);
+            }
         }
 
         private void OnDownArrowKeyPressed(object arg)
         {
-            SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Down);
-
+            if (SnakeGameLogic.IsGameRunning)
+            {
+                SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Down);
+            }
         }
 
         private void OnRightArrowKeyPressed(object arg)
         {
-            SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Right);
+            if (SnakeGameLogic.IsGameRunning)
+            {
+                SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Right);
+            }
         }
 
         private void OnLeftArrowKeyPressed(object arg)
         {
-            SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Left);
-
+            if (SnakeGameLogic.IsGameRunning)
+            {
+                SnakeGameLogic.ProcessKeyboardEvent(SnakeDirection.Left);
+            }
         }
 
         public ICommand UpArrowKeyPressedCommand

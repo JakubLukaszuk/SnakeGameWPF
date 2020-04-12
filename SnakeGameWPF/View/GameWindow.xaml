@@ -27,13 +27,13 @@
         <Viewbox Grid.Row="1" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" Stretch="Fill">
             <Border BorderBrush="Black" BorderThickness="2">
             <Canvas Name="Board" Width="500" Height="500">
-            <Rectangle Width="{Binding SnakeGameLogic.Snake.SnakeHead.WidthPixels, Mode=OneWay}" 
-                       Height="{Binding SnakeGameLogic.Snake.SnakeHead.HeightPixels, Mode=OneWay}" 
+                    <Rectangle Width="{Binding SnakeGameLogic.WholeSnake.SnakeHead.WidthPixels, Mode=OneWay}" 
+                       Height="{Binding SnakeGameLogic.WholeSnake.SnakeHead.HeightPixels, Mode=OneWay}" 
                        Fill="DarkGreen">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
-                                <TranslateTransform X="{Binding SnakeGameLogic.Snake.SnakeHead.XPositionPixelsScreen, Mode=OneWay}" 
-                                            Y="{Binding SnakeGameLogic.Snake.SnakeHead.YPositionPixelsScreen, Mode=OneWay}">
+                                <TranslateTransform X="{Binding SnakeGameLogic.WholeSnake.SnakeHead.XPositionPixelsScreen, Mode=OneWay}" 
+                                            Y="{Binding SnakeGameLogic.WholeSnake.SnakeHead.YPositionPixelsScreen, Mode=OneWay}">
                                 </TranslateTransform>
                             </TransformGroup>
                 </Rectangle.RenderTransform>

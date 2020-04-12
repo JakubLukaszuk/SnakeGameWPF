@@ -67,7 +67,7 @@
     <Compile Include="Game\Constant\GameInfo.cs" />
     <Compile Include="Game\Delegate.cs" />
     <Compile Include="Game\GameLogic.cs" />
-    <Compile Include="Game\Snake\Snake.cs" />
+    <Compile Include="Game\Snake\WholeSnake.cs" />
     <Compile Include="Game\Snake\SnakeHead.cs" />
     <Compile Include="Game\Snake\SnakeSegment.cs" />
     <Compile Include="Game\Snake\SnakeBoadySegment.cs" />

@@ -20,12 +20,15 @@ namespace SnakeGameWPF.Game
 
         public GameLogic()
         {
+            WholeSnake.OnHitBoundary += new HitBoundary(HitBoundaryEventHandler);
+            WholeSnake.OnHitSnake += new HitSnake(HitSnakeEventHandler);
+
             StartNewGame();
         }
 
         private void StartNewGame()
         {
-            Snake = new SnakeGameWPF.Game.Snake.Snake();
+            WholeSnake = new WholeSnake();
             RaisePropertyChanged("TheSnake");
 
             IsGameOver = false;
@@ -53,17 +56,35 @@ namespace SnakeGameWPF.Game
             else
             {
                 // Game running.
-                Snake.UpdateSnakeStatus();
+                WholeSnake.UpdateSnakeStatus();
             }
+        }
+
+        private void HitBoundaryEventHandler()
+        {
+            IsGameOver = true;
+            RaisePropertyChanged("IsGameOver");
+            RaisePropertyChanged("IsGameRunning");
+        }
+
+        /// <summary>
+        /// The HitSnakeEventHandler is called to process an OnHitSnake event.
+        /// </summary>
+        private void HitSnakeEventHandler()
+        {
+            IsGameOver = true;
+            RaisePropertyChanged("IsGameOver");
+            RaisePropertyChanged("IsGameRunning");
         }
 
 
         public void ProcessKeyboardEvent(SnakeDirection direction)
         {
-            Snake.SetSnakeDirection(direction);
+            WholeSnake.SetSnakeDirection(direction);
         }
 
-        public SnakeGameWPF.Game.Snake.Snake Snake { get; private set; }
+        public WholeSnake WholeSnake { get; private set; }
+
 
 
         public bool IsGameOver { get; private set; }
@@ -76,8 +97,6 @@ namespace SnakeGameWPF.Game
                 return !IsGameOver;
             }
         }
-
-
 
     }
 }

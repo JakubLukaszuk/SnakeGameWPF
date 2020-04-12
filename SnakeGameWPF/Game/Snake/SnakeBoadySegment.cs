@@ -10,7 +10,7 @@ namespace SnakeGameWPF.Game.Snake
 {
     internal class SnakeBoadySegment : SnakeSegment
     {
-        public SnakeBoadySegment(Snake theSnake)
+        public SnakeBoadySegment(WholeSnake theSnake)
         {
 
             _width = Dimensions.SnakeBoadyWidth;
@@ -88,6 +88,5 @@ namespace SnakeGameWPF.Game.Snake
             _height = snakeBodyPart.HeightPixels;
             _travelDirection = snakeBodyPart.TravelDirection;
         }
-
     }
 }

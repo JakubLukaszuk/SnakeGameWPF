@@ -30,6 +30,30 @@ namespace SnakeGameWPF.Game.Snake
 
             return false;
         }
+
+        public bool IsHitBoundary()
+        {
+            if (_xPosition - (_width / 2.0) < 0)
+            {
+                return true;
+            }
+            else if (_xPosition + (_width / 2.0) > 100)
+            {
+                return true;
+            }
+            else if (_yPosition - (_height / 2.0) < 0)
+            {
+                return true;
+            }
+            else if (_yPosition + (_height / 2.0) > 100)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
 
