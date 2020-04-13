@@ -10,24 +10,20 @@ namespace SnakeGameWPF.ViewModel
 {
     class GameWindowViewModel : ViewModelBase
     {
-        public static event HitSnake OnHitSnake;
         private ImageService _imageService;
-        private GameImage _snakeModelImage;
-
 
         public GameWindowViewModel()
         {
-            _snakeModelImage= new GameImage();
-            _snakeModelImage.Image = new BitmapImage();
             _imageService = new ImageService();
             SnakeGameLogic = new GameLogic();
+
+            StartButtonPressedCommand = new DelegateCommand(OnStartNewGame);
+            RestartButtonPressedCommand = new DelegateCommand(OnRestartGame);
 
             UpArrowKeyPressedCommand = new DelegateCommand(OnUpArrowKeyPressed);
             DownArrowKeyPressedCommand = new DelegateCommand(OnDownArrowKeyPressed);
             RightArrowKeyPressedCommand = new DelegateCommand(OnRightArrowKeyPressed);
             LeftKeyArrrowPressedCommand = new DelegateCommand(OnLeftArrowKeyPressed);
-
-            SnakeGameLogic.WholeSnake.OnHitSnakeFood += OnHitFoodHandler;
 
         }
 
@@ -63,6 +59,16 @@ namespace SnakeGameWPF.ViewModel
             }
         }
 
+        private void OnStartNewGame(object arg)
+        {
+            SnakeGameLogic.StartNewGame();
+        }
+
+        private void OnRestartGame(object arg)
+        {
+            SnakeGameLogic.RestartGame();
+        }
+
         public ICommand UpArrowKeyPressedCommand
         {
             get;
@@ -86,30 +92,21 @@ namespace SnakeGameWPF.ViewModel
             get;
             private set;
         }
+        public ICommand StartButtonPressedCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand RestartButtonPressedCommand
+        {
+            get;
+            private set;
+        }
 
         public GameLogic SnakeGameLogic { get; }
 
-        public GameImage SnakeModelImage {
-            get 
-            { 
-                return _snakeModelImage; 
-            } 
-            private set
-            { 
-                if(_snakeModelImage != value && value != null)
-                {
-                    _snakeModelImage = value;
-                    RaisePropertyChanged("SnakeModelImage");
-                    
-                }
-           
-            }
-        }
 
-        private void OnHitFoodHandler()
-        {
-            SnakeModelImage = _imageService.FetchRandomSnakeImage();
-        }
 
     }
 }

@@ -27,7 +27,6 @@ namespace SnakeGameWPF.Data.Provider
             stream.Close();
             client.Dispose();
 
-            Console.WriteLine(bitmap.Width);
 
             GameImage bitMapImage = new GameImage();
             bitMapImage.ImageName = Path.GetFileNameWithoutExtension(imageUrl);

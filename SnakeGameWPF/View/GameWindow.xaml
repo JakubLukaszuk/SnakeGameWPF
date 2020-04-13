@@ -87,9 +87,9 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0">Start</Button>
-            <Button Grid.Row="2">Restart</Button>
-            <Image Grid.Row="5" Grid.RowSpan="3" Source="{Binding SnakeModelImage.Image, Mode=OneWay}"/>
+            <Button Grid.Row="0" IsEnabled="{Binding SnakeGameLogic.IsGameOver}" Command="{Binding StartButtonPressedCommand}">Start</Button>
+            <Button Grid.Row="2" IsEnabled="{Binding SnakeGameLogic.IsGameRunning}" Command="{Binding RestartButtonPressedCommand}">Restart</Button>
+            <Image Grid.Row="5" Grid.RowSpan="3" Source="{Binding SnakeGameLogic.SnakeModelImage.Image, Mode=OneWay}"/>
         </Grid>
         <Grid Grid.Row="3" Grid.ColumnSpan="3">
         </Grid>

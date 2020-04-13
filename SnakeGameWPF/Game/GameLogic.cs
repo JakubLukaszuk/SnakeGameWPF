@@ -8,30 +8,34 @@ using SnakeGameWPF.Common;
 using SnakeGameWPF.Game.Constant.Enum;
 using SnakeGameWPF.Game.Constant;
 using SnakeGameWPF.Game.Snake;
+using SnakeGameWPF.Model;
+using SnakeGameWPF.Data.Service;
 
 
 namespace SnakeGameWPF.Game
 {
     class GameLogic : NotificationBase
     {
+        GameImage _snakeModelImage;
         private int _gameStepMilliSeconds;
         private DispatcherTimer _gameTimer;
+        private ImageService _imageService;
 
 
         public GameLogic()
         {
+            IsGameOver = true;
+            _imageService = new ImageService();
+        }
 
-            StartNewGame();
+        public void StartNewGame()
+        {
+            WholeSnake = new WholeSnake();
+            RaisePropertyChanged("WholeSnake");
 
             WholeSnake.OnHitBoundary += new HitBoundary(HitBoundaryEventHandler);
             WholeSnake.OnHitSnake += new HitSnake(HitSnakeEventHandler);
             WholeSnake.OnHitSnakeFood += new HitSnakeFoood(HitSnakeFoodHandler);
-        }
-
-        private void StartNewGame()
-        {
-            WholeSnake = new WholeSnake();
-            RaisePropertyChanged("WholeSnake");
 
             SnakeFood = new SnakeFood();
             RaisePropertyChanged("SnakeFood");
@@ -40,6 +44,7 @@ namespace SnakeGameWPF.Game
             RaisePropertyChanged("IsGameOver");
             RaisePropertyChanged("IsGameRunning");
 
+
             _gameStepMilliSeconds = GameInfo.DefaultGameStepMilliSeconds;
             _gameTimer = new DispatcherTimer();
             _gameTimer.Interval = TimeSpan.FromMilliseconds(_gameStepMilliSeconds);
@@ -47,6 +52,11 @@ namespace SnakeGameWPF.Game
             _gameTimer.Start();
         }
 
+        public void RestartGame()
+        {
+            _gameTimer.Stop();
+            StartNewGame();
+        }
 
         private void GameTimerEventHandler(object sender, EventArgs e)
         {
@@ -65,6 +75,7 @@ namespace SnakeGameWPF.Game
 
         public void HitSnakeFoodHandler()
         {
+            SnakeModelImage = _imageService.FetchRandomSnakeImage();
             SnakeFood.Move(WholeSnake);
         }
 
@@ -83,6 +94,24 @@ namespace SnakeGameWPF.Game
             IsGameOver = true;
             RaisePropertyChanged("IsGameOver");
             RaisePropertyChanged("IsGameRunning");
+        }
+
+        public GameImage SnakeModelImage
+        {
+            get
+            {
+                return _snakeModelImage;
+            }
+            private set
+            {
+                if (_snakeModelImage != value && value != null)
+                {
+                    _snakeModelImage = value;
+                    RaisePropertyChanged("SnakeModelImage");
+
+                }
+
+            }
         }
 
 
