@@ -24,7 +24,8 @@ namespace SnakeGameWPF.Game
 
         public GameLogic()
         {
-            IsGameOver = true;
+            IsGameReady = true;
+            IsGameOver = false;
             _imageService = new ImageService();
         }
 
@@ -42,9 +43,11 @@ namespace SnakeGameWPF.Game
             SnakeFood = new SnakeFood();
             RaisePropertyChanged("SnakeFood");
 
+            IsGameReady = false;
             IsGameOver = false;
             RaisePropertyChanged("IsGameOver");
             RaisePropertyChanged("IsGameRunning");
+            RaisePropertyChanged("IsGameReady");
 
 
             _gameStepMilliSeconds = GameInfo.DefaultGameStepMilliSeconds;
@@ -67,7 +70,7 @@ namespace SnakeGameWPF.Game
 
         private void GameTimerEventHandler(object sender, EventArgs e)
         {
-            if (IsGameOver)
+            if (IsGameReady)
             {
                 if (_gameTimer.IsEnabled)
                 {
@@ -82,7 +85,7 @@ namespace SnakeGameWPF.Game
 
         private void TimeInGameTimerEventHandler(object sender, EventArgs e)
         {
-            if (IsGameOver)
+            if (IsGameReady)
             {
                 if (timeInGameTimer.IsEnabled)
                 {
@@ -106,17 +109,23 @@ namespace SnakeGameWPF.Game
 
         private void HitBoundaryEventHandler()
         {
+            IsGameReady = true;
             IsGameOver = true;
             RaisePropertyChanged("IsGameOver");
             RaisePropertyChanged("IsGameRunning");
+            RaisePropertyChanged("IsGameReady");
+
         }
 
 
         private void HitSnakeEventHandler()
         {
+            IsGameReady = true;
             IsGameOver = true;
             RaisePropertyChanged("IsGameOver");
             RaisePropertyChanged("IsGameRunning");
+            RaisePropertyChanged("IsGameReady");
+
         }
 
         public GameImage SnakeModelImage
@@ -149,15 +158,15 @@ namespace SnakeGameWPF.Game
 
         public GamePoints GamePoints { get; private set; }
 
+        public bool IsGameReady { get; private set; }
 
         public bool IsGameOver { get; private set; }
-
 
         public bool IsGameRunning
         {
             get
             {
-                return !IsGameOver;
+                return !IsGameReady;
             }
         }
 

@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:SnakeGameWPF.View"
         mc:Ignorable="d"
         Title="Snake Game" Height="545px" Width="700px">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Up" Command="{Binding UpArrowKeyPressedCommand}"></KeyBinding>
         <KeyBinding Key="Down" Command="{Binding DownArrowKeyPressedCommand}"></KeyBinding>
@@ -69,6 +72,14 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                    <Grid Width="500px" Height="500px"
+                        Visibility="{Binding SnakeGameLogic.IsGameOver, Converter={StaticResource BoolToVisConverter}}">
+                        <Viewbox Stretch="Fill" Margin="50,100,50,150">
+                            <TextBlock TextAlignment="Center">
+                                GAME OVER
+                            </TextBlock>
+                        </Viewbox>
+                    </Grid>
                 </Canvas>
         </Border>
         </Viewbox>
@@ -86,7 +97,7 @@
                 <RowDefinition Height="auto"/>
 
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" IsEnabled="{Binding SnakeGameLogic.IsGameOver}" Command="{Binding StartButtonPressedCommand}">Start</Button>
+            <Button Grid.Row="0" IsEnabled="{Binding SnakeGameLogic.IsGameReady}" Command="{Binding StartButtonPressedCommand}">Start</Button>
             <Button Grid.Row="2" IsEnabled="{Binding SnakeGameLogic.IsGameRunning}" Command="{Binding RestartButtonPressedCommand}">Restart</Button>
             <Image Grid.Row="4" Grid.RowSpan="2" Source="{Binding SnakeGameLogic.SnakeModelImage.Image, Mode=OneWay}"/>
             <Label Grid.Row="6">

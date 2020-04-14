@@ -33,19 +33,19 @@ namespace SnakeGameWPF.Game.Snake
 
         public bool IsHitBoundary()
         {
-            if (_xPosition - (_width / 2.0) < 0)
+            if (_xPosition - (_width / 2.0) < Dimensions.SneakHeadWidth)
             {
                 return true;
             }
-            else if (_xPosition + (_width / 2.0) > 100)
+            else if (_xPosition + (_width / 2.0) > 100 - Dimensions.SneakHeadWidth)
             {
                 return true;
             }
-            else if (_yPosition - (_height / 2.0) < 0)
+            else if (_yPosition - (_height / 2.0) < Dimensions.SneakHeadHieght)
             {
                 return true;
             }
-            else if (_yPosition + (_height / 2.0) > 100)
+            else if (_yPosition + (_height / 2.0) > 100 - Dimensions.SneakHeadHieght)
             {
                 return true;
             }
