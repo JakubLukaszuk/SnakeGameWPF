@@ -15,8 +15,8 @@ namespace SnakeGameWPF.Game.Constant
         public const double SpawnSneakYPos = 50;
         public const double SnakeFoodWidth = 4;
         public const double SnakeFoodHieght = 4;
-        public const int MaxFoodPostion = 95;
-        public const int MinFoodPosition = 5;
+        public const int MaxFoodPostion = 96;
+        public const int MinFoodPosition = 4;
         public const double PlaceingFoodBuffer = 4;
 
     }

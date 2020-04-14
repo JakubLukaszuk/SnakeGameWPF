@@ -8,7 +8,7 @@ namespace SnakeGameWPF.Game.Constant
 {
     class GameInfo
     {
-        public const int DefaultGameStepMilliSeconds = 250;
+        public const int DefaultGameStepMilliSeconds = 300;
 
         public static readonly string[] ImagePath = new string[]
         {

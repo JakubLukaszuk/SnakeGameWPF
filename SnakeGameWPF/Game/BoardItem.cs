@@ -61,7 +61,7 @@ namespace SnakeGameWPF.Game
             get
             {
                 double val;
-                val = ((_xPosition - (_width / 2.0)) / 100.0) * 500.0;
+                val = ((_xPosition - (_width / 2.0)) / 100.0) * Dimensions.GameBoardHeightPix;
 
                 return val;
             }
@@ -75,7 +75,8 @@ namespace SnakeGameWPF.Game
             get
             {
                 double val;
-                val = ((_yPosition - (_height / 2.0)) / 100.0) * 500.0;
+                val = ((_yPosition - (_height / 2.0)) / 100.0) * Dimensions.GameBoardHeightPix;
+;
 
                 return val;
             }

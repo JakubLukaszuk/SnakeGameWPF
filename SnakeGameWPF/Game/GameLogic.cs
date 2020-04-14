@@ -18,7 +18,7 @@ namespace SnakeGameWPF.Game
     {
         GameImage _snakeModelImage;
         private int _gameStepMilliSeconds;
-        private DispatcherTimer _gameTimer;
+        private DispatcherTimer _gameTimer, timeInGameTimer;
         private ImageService _imageService;
 
 
@@ -30,6 +30,8 @@ namespace SnakeGameWPF.Game
 
         public void StartNewGame()
         {
+            GamePoints = new GamePoints();
+
             WholeSnake = new WholeSnake();
             RaisePropertyChanged("WholeSnake");
 
@@ -50,6 +52,11 @@ namespace SnakeGameWPF.Game
             _gameTimer.Interval = TimeSpan.FromMilliseconds(_gameStepMilliSeconds);
             _gameTimer.Tick += new EventHandler(GameTimerEventHandler);
             _gameTimer.Start();
+
+            timeInGameTimer = new DispatcherTimer();
+            timeInGameTimer.Interval = TimeSpan.FromSeconds(1);
+            timeInGameTimer.Tick += new EventHandler(TimeInGameTimerEventHandler);
+            timeInGameTimer.Start();
         }
 
         public void RestartGame()
@@ -73,10 +80,28 @@ namespace SnakeGameWPF.Game
             }
         }
 
+        private void TimeInGameTimerEventHandler(object sender, EventArgs e)
+        {
+            if (IsGameOver)
+            {
+                if (timeInGameTimer.IsEnabled)
+                {
+                    timeInGameTimer.Stop();
+                }
+            }
+            else
+            {
+                RaisePropertyChanged("GamePoints");
+                GamePoints.SecondsSurvived++;
+            }
+        }
+
         public void HitSnakeFoodHandler()
         {
             SnakeModelImage = _imageService.FetchRandomSnakeImage();
             SnakeFood.Move(WholeSnake);
+            GamePoints.Points++;
+            RaisePropertyChanged("GamePoints");
         }
 
         private void HitBoundaryEventHandler()
@@ -86,9 +111,7 @@ namespace SnakeGameWPF.Game
             RaisePropertyChanged("IsGameRunning");
         }
 
-        /// <summary>
-        /// The HitSnakeEventHandler is called to process an OnHitSnake event.
-        /// </summary>
+
         private void HitSnakeEventHandler()
         {
             IsGameOver = true;
@@ -123,6 +146,8 @@ namespace SnakeGameWPF.Game
         public WholeSnake WholeSnake { get; private set; }
 
         public SnakeFood SnakeFood { get; private set; }
+
+        public GamePoints GamePoints { get; private set; }
 
 
         public bool IsGameOver { get; private set; }
