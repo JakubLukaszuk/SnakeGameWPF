@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using SnakeGameWPF.Common;
 using SnakeGameWPF.Game.Constant.Enum;
@@ -24,6 +20,7 @@ namespace SnakeGameWPF.Game
 
         public GameLogic()
         {
+            ErrorMessage = "";
             IsGameReady = true;
             IsGameOver = false;
             _imageService = new ImageService();
@@ -31,6 +28,9 @@ namespace SnakeGameWPF.Game
 
         public void StartNewGame()
         {
+            ErrorMessage = "";
+            RaisePropertyChanged("ErrorMessage");
+
             GamePoints = new GamePoints();
 
             WholeSnake = new WholeSnake();
@@ -74,7 +74,7 @@ namespace SnakeGameWPF.Game
             {
                 if (_gameTimer.IsEnabled)
                 {
-                    _gameTimer.Stop();  
+                    _gameTimer.Stop();
                 }
             }
             else
@@ -101,7 +101,29 @@ namespace SnakeGameWPF.Game
 
         public void HitSnakeFoodHandler()
         {
-            SnakeModelImage = _imageService.FetchRandomSnakeImage();
+            try
+            {
+                SnakeModelImage = _imageService.FetchRandomSnakeImage();
+            }
+            catch (System.Net.WebException)
+            {
+                ErrorMessage = GameInfo.NetErrorMessage;
+                RaisePropertyChanged("ErrorMessage");
+                FinishGame();
+            }
+            catch (ArgumentNullException)
+            {
+                //Stream error
+                ErrorMessage = GameInfo.StreamErrorMessage;
+                RaisePropertyChanged("ErrorMessage");
+                FinishGame();
+            }
+            catch (Exception)
+            {
+                ErrorMessage = GameInfo.UnknownErrorMessage;
+                RaisePropertyChanged("ErrorMessage");
+                FinishGame();
+            }
             SnakeFood.Move(WholeSnake);
             GamePoints.Points++;
             RaisePropertyChanged("GamePoints");
@@ -109,23 +131,22 @@ namespace SnakeGameWPF.Game
 
         private void HitBoundaryEventHandler()
         {
-            IsGameReady = true;
-            IsGameOver = true;
-            RaisePropertyChanged("IsGameOver");
-            RaisePropertyChanged("IsGameRunning");
-            RaisePropertyChanged("IsGameReady");
-
+            FinishGame();
         }
 
 
         private void HitSnakeEventHandler()
+        {
+            FinishGame();
+        }
+
+        private void FinishGame()
         {
             IsGameReady = true;
             IsGameOver = true;
             RaisePropertyChanged("IsGameOver");
             RaisePropertyChanged("IsGameRunning");
             RaisePropertyChanged("IsGameReady");
-
         }
 
         public GameImage SnakeModelImage
@@ -140,9 +161,7 @@ namespace SnakeGameWPF.Game
                 {
                     _snakeModelImage = value;
                     RaisePropertyChanged("SnakeModelImage");
-
                 }
-
             }
         }
 
@@ -157,6 +176,8 @@ namespace SnakeGameWPF.Game
         public SnakeFood SnakeFood { get; private set; }
 
         public GamePoints GamePoints { get; private set; }
+
+        public string ErrorMessage { get; private set; }
 
         public bool IsGameReady { get; private set; }
 

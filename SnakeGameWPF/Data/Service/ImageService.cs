@@ -1,12 +1,7 @@
 ﻿using SnakeGameWPF.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SnakeGameWPF.Game.Constant;
 using SnakeGameWPF.Data.Provider;
-using System.Runtime.InteropServices;
 
 namespace SnakeGameWPF.Data.Service
 {
@@ -27,19 +22,21 @@ namespace SnakeGameWPF.Data.Service
             }
             pervIndex = randomIndex;
 
-            Console.WriteLine(randomIndex);
-
             try
             {
               bitMapImage = BitMapImageProvider.FetchImageFromInternet(imagelinks[randomIndex]);
             }
-            catch (ExternalException)
+            catch(System.Net.WebException e)
             {
-
+                throw e;
             }
-            catch (ArgumentNullException)
+            catch (ArgumentNullException e)
             {
-                
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw e;            
             }
             return bitMapImage;
         }

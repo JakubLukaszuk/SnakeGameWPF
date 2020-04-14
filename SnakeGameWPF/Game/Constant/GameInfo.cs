@@ -18,5 +18,9 @@ namespace SnakeGameWPF.Game.Constant
             "https://cdn.pixabay.com/photo/2015/07/26/20/12/snake-861713_960_720.jpg",
             "https://cdn.pixabay.com/photo/2011/07/25/23/40/green-tree-python-8343_960_720.jpg"
         };
+
+        public const string NetErrorMessage = "Image cannot be downloaded. Check Internet connection.";
+        public const string StreamErrorMessage = "Somethink went wrong with image convertion.";
+        public const string UnknownErrorMessage = "Unknown error.";
     }
 }

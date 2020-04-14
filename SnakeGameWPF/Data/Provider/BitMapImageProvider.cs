@@ -18,15 +18,15 @@ namespace SnakeGameWPF.Data.Provider
     {
         public static GameImage FetchImageFromInternet(string imageUrl)
         {
+            Bitmap bitmap;
 
-            WebClient client = new WebClient();
-            Stream stream = client.OpenRead(imageUrl);
-            Bitmap bitmap; bitmap = new Bitmap(stream);
-
-            stream.Flush();
-            stream.Close();
-            client.Dispose();
-
+            using (WebClient client = new WebClient())
+            {
+                using (Stream stream = client.OpenRead(imageUrl))
+                {
+                    bitmap = new Bitmap(stream);
+                }
+            }
 
             GameImage bitMapImage = new GameImage();
             bitMapImage.ImageName = Path.GetFileNameWithoutExtension(imageUrl);
