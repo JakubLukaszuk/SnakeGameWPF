@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnakeGameWPF.View"
         mc:Ignorable="d"
-        Title="Snake Game" Height="545px" Width="700px">
+        Title="Snake Game" MinHeight="545px" Height="545px" MinWidth="700px" Width="700px">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <ResourceDictionary x:Key="style">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style\GameWindowStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Up" Command="{Binding UpArrowKeyPressedCommand}"></KeyBinding>
@@ -15,7 +20,7 @@
         <KeyBinding Key="Right" Command="{Binding RightArrowKeyPressedCommand}"></KeyBinding>
         <KeyBinding Key="Left" Command="{Binding LeftKeyArrrowPressedCommand}"></KeyBinding>
     </Window.InputBindings>
-    <Grid>
+    <Grid Resources="{StaticResource style}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="66*" />
             <ColumnDefinition Width="520px" />
@@ -65,7 +70,6 @@
                                             <TranslateTransform X="{Binding XPositionPixelsScreen, Mode=OneWay}" 
                                                         Y="{Binding YPositionPixelsScreen, Mode=OneWay}">
                                             </TranslateTransform>
-
                                         </TransformGroup>
                                     </Rectangle.RenderTransform>
                                 </Rectangle>
@@ -99,7 +103,8 @@
             </Grid.RowDefinitions>
             <Button Grid.Row="0" IsEnabled="{Binding SnakeGameLogic.IsGameReady}" Command="{Binding StartButtonPressedCommand}">Start</Button>
             <Button Grid.Row="2" IsEnabled="{Binding SnakeGameLogic.IsGameRunning}" Command="{Binding RestartButtonPressedCommand}">Restart</Button>
-            <Image Grid.Row="4" Grid.RowSpan="2" Source="{Binding SnakeGameLogic.SnakeModelImage.Image, Mode=OneWay}"/>
+
+            <Image Grid.Row="4" Grid.RowSpan="2" Source="{Binding SnakeGameLogic.SnakeModelImage.Image, Mode=OneWay}" Margin="3px 0"/>
             <Label Grid.Row="6">
                 <Label.Content>
                     <AccessText TextWrapping="Wrap" Text="{Binding SnakeGameLogic.SnakeModelImage.ImageName}"/>
